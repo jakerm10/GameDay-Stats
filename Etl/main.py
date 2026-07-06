@@ -1,29 +1,23 @@
-import os
-import requests
-from dotenv import load_dotenv
+from Etl.fetch.teams import fetch_teams
+from Etl.transform.teams import transform_teams
+from Etl.load.teams import load_teams
 
-load_dotenv("../backend/.env")
 
-API_KEY = os.getenv("CFBD_API_KEY")
+def main():
 
-headers = {
-    "Authorization": f"Bearer {API_KEY}"
-}
+    print("Fetching teams...")
+    raw_teams = fetch_teams()
+    print(f"Fetched {len(raw_teams)} teams")
 
-url = "https://api.collegefootballdata.com/teams/fbs"
+    print("Transforming teams...")
+    clean_teams = transform_teams(raw_teams)
+    print(f"Transformed {len(clean_teams)} teams")
 
-response = requests.get(url, headers=headers)
+    print("Loading teams...")
+    load_teams(clean_teams)
 
-print(response.status_code)
+    print("Done!")
 
-print(response.json()[:3])
 
-import json
-
-if response.status_code == 200:
-    teams = response.json()
-
-    with open("teams.json", "w") as file:
-        json.dump(teams, file, indent=4)
-
-    print("Saved team data to teams.json")
+if __name__ == "__main__":
+    main()
