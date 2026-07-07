@@ -1,6 +1,6 @@
 def transform_team(team):
-
     return {
+        "id": team.get("id"),
         "school": team.get("school"),
         "abbreviation": team.get("abbreviation"),
         "mascot": team.get("mascot"),
