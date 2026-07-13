@@ -44,6 +44,7 @@ This table will exist to hold all the stadium values. Each stadiumn will have th
 
 Name | Type | Description | Notes
 id | int | unqiue key for all stadiums
+cfbd_id | int | cfbd key for each stadium
 name | string | stadium name
 city | string | where the team is located
 state | string | where the team is located
@@ -56,6 +57,30 @@ dome | bool | is the stadium enclosed
 
 ### Relationships
 One Stadium has one Team
+
+## Games
+
+## Purpose
+This table will exist to hold all the game instances. Each stadiumn will have their own unqiue id acting as a PK. These satdiums are derived from the team API from CFBD. Each game will have two teams and a location if possible
+
+### Columns
+
+Name | Type | Description | Notes
+id | int | unique key for all games
+cfbd_id | int | cfbd key for each game
+start_time | datetime | dmy and hms of the start of the game
+status | string | Scheduled / In Progress / Final / Postponed
+season | int | the season the game takes place in
+week | int | the week the game takes place in
+season_type | string | denotes regular/pre/post etc. season
+conference_game | bool | conference game or not
+stadium_id | int | fk to stadiums to find the stadium the game is played at
+neutral_site | bool
+home_team_id | int | fk to teams
+home_team_points | int | points the home team scored
+away_team_id | int | fk to teams
+away_team_points | int | points the away team scored
+
 
 
 
